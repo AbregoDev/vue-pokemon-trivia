@@ -1,16 +1,17 @@
 <template>
     <h1>¿Quién es este Pokémon?</h1>
 
-    <!-- TODO: img -->
-    <PokemonPicture />
+    <PokemonPicture :pokemonId="240" :showPokemon="true" />
 
-    <!-- TODO: Opciones -->
     <PokemonOptions />
 </template>
 
 <script>
 import PokemonPicture from '../components/PokemonPicture.vue';
 import PokemonOptions from '../components/PokemonOptions.vue';
+import getPokemonOptions from '@/helpers/getPokemonOptions'
+
+console.log(getPokemonOptions());
 
 export default {
     components: {
