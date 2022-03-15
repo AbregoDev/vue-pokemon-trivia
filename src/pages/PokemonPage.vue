@@ -1,22 +1,42 @@
 <template>
-    <h1>¿Quién es este Pokémon?</h1>
+    <h1 v-if="!pokemon">Espere por favor...</h1>
 
-    <PokemonPicture :pokemonId="240" :showPokemon="true" />
+    <div v-else>
+        <h1>¿Quién es este Pokémon?</h1>
 
-    <PokemonOptions />
+        <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
+        <PokemonOptions :pokemonsOptions="pokemonArr" />
+    </div>
 </template>
 
 <script>
-import PokemonPicture from '../components/PokemonPicture.vue';
-import PokemonOptions from '../components/PokemonOptions.vue';
-import getPokemonOptions from '@/helpers/getPokemonOptions'
+import PokemonPicture from "@/components/PokemonPicture.vue";
+import PokemonOptions from "@/components/PokemonOptions.vue";
 
-console.log(getPokemonOptions());
+import getPokemonOptions from "@/helpers/getPokemonOptions.js";
 
 export default {
     components: {
         PokemonPicture,
         PokemonOptions,
+    },
+    data() {
+        return {
+            pokemonArr: [],
+            pokemon: null,
+            showPokemon: false,
+        };
+    },
+    methods: {
+        async mixPokemonArray() {
+            this.pokemonArr = await getPokemonOptions()
+
+            const randomInt = Math.floor(Math.random() * 4)
+            this.pokemon = this.pokemonArr[randomInt]
+        }
+    },
+    mounted() {
+        this.mixPokemonArray()
     }
-}
+};
 </script>
