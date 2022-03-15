@@ -2,7 +2,8 @@
     <div class="options-container">
         <ul>
             <li v-for="pokemon in pokemonsOptions"
-                :key="pokemon.id">
+                :key="pokemon.id"
+                @click="$emit( 'selectionPokemons', pokemon.id )">
                 {{ pokemon.name }}
             </li>
         </ul>
@@ -14,7 +15,12 @@ export default {
     props: {
         pokemonsOptions: {
             type: Array,
-            required: true
+            required: true,
+        }
+    },
+    methods: {
+        emit() {
+
         }
     }
 };

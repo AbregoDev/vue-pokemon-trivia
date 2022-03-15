@@ -4,16 +4,22 @@
     <div v-else>
         <h1>¿Quién es este Pokémon?</h1>
 
-        <PokemonPicture :pokemonId="pokemon.id" :showPokemon="showPokemon" />
-        <PokemonOptions :pokemonsOptions="pokemonArr" />
+        <PokemonPicture
+            :pokemon-id="pokemon.id"
+            :show-pokemon="showPokemon"
+        />
+        <PokemonOptions
+            :pokemonsOptions="pokemonArr"
+            @selection-pokemons="checkAnswer"
+        />
     </div>
 </template>
 
 <script>
-import PokemonPicture from "@/components/PokemonPicture.vue";
-import PokemonOptions from "@/components/PokemonOptions.vue";
+import PokemonPicture from "@/components/PokemonPicture.vue"
+import PokemonOptions from "@/components/PokemonOptions.vue"
 
-import getPokemonOptions from "@/helpers/getPokemonOptions.js";
+import getPokemonOptions from "@/helpers/getPokemonOptions.js"
 
 export default {
     components: {
@@ -25,7 +31,7 @@ export default {
             pokemonArr: [],
             pokemon: null,
             showPokemon: false,
-        };
+        }
     },
     methods: {
         async mixPokemonArray() {
@@ -33,10 +39,13 @@ export default {
 
             const randomInt = Math.floor(Math.random() * 4)
             this.pokemon = this.pokemonArr[randomInt]
-        }
+        },
+        checkAnswer(pokemonId) {
+            this.showPokemon = true
+        },
     },
     mounted() {
         this.mixPokemonArray()
-    }
+    },
 };
 </script>
